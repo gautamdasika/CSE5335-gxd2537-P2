@@ -3,7 +3,7 @@ var router = express.Router();
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
-var url = 'mongodb://root:root@ds040349.mlab.com:40349/lastdb';
+var url = 'mongodb://root:root@ds113608.mlab.com:13608/heroku_0z0cwz6w';
 var result;
 var i=0;
 
