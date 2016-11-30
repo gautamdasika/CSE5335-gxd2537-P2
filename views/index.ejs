@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
+  <style>
+    tr {
+      transition: all linear 0.5s;
+      background-color: lightblue;
+      height: 30px;
+      width: 100%;
+      position: relative;
+      top: 0;
+      left: 0;
+    }
+    .rand_style{
+      overflow: hidden;
+    }
+    .ng-hide {
+      height: 0;
+      width: 0;
+      background-color: transparent;
+      top:-200px;
+      left: 200px;
+    }
+
+  </style>
+  <title>Get Data</title>
+  <meta name="viewport" content="initial-scale=1.0">
+  <meta charset="utf-8">
+  <style>
+    /* Always set the map height explicitly to define the size of the div
+     * element that contains the map. */
+    #map {
+      height: 75%;
+      width: 75%;
+    }
+    /* Optional: Makes the sample page fill the window. */
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+<div>
+
+  <button ng-click="myFunction()">Click Me!</button><br/><br/>
+  <table>
+    <tr class="rand_style" ng-repeat="user in results | limitTo : 20">
+      <td>{{user.index}}</td><td>{{user.age}}</td><td>{{user.name}}</td>
+    </tr>
+  </table>
+
+</div>
+<script>
+  var app = angular.module('myApp', ['ngAnimate']);
+  app.controller('myCtrl', function($scope, $http, $interval) {
+    $scope.results=[];
+    $scope.myFunction=function() {
+      $interval($scope.fire_ajax, 500, 100);
+    }
+    $scope.fire_ajax = function() {
+      $http.get('/users')
+              .then(function mySuccess(response) {
+                $scope.results.unshift(response.data)
+                console.log(response.data)
+                console
+              },function myError() {
+                console.log("failed")
+              })
+
+    }
+  });
+</script>
+
+</body>
+</html>
